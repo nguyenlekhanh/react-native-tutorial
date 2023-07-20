@@ -28,6 +28,8 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import CustomButton from './customerButton';
+import Header from './Header';
 
 function App(): JSX.Element {
   const [name, setName] = useState('');
@@ -61,39 +63,43 @@ function App(): JSX.Element {
       //   {cancelable: true, onDismiss: () => console.warn('Alert dismissed!')},
       // );
 
-      ToastAndroid.show('The name must be longer than 3 characters',
-        ToastAndroid.SHORT)
+      ToastAndroid.show(
+        'The name must be longer than 3 characters',
+        ToastAndroid.SHORT,
+      );
     }
   };
 
   return (
     <ImageBackground
       style={styles.body}
-      source={{uri: 'http://cdn.pixabay.com/photo/2013/07/12/12/35/textture-145968_960_720.png'}}
-    >
+      source={{
+        uri: 'http://cdn.pixabay.com/photo/2013/07/12/12/35/textture-145968_960_720.png',
+      }}>
+        <Header />
       <View style={styles.body}>
         <Modal
           visible={showWarning}
           onRequestClose={() => {
-            setShowWarning(false)
+            setShowWarning(false);
           }}
           transparent
           animationType="fade"
-          hardwareAccelerated
-        >
+          hardwareAccelerated>
           <View style={styles.centered_view}>
             <View style={styles.warning_modal}>
               <View style={styles.warning_title}>
                 <Text style={styles.text}>WARNING!</Text>
               </View>
               <View style={styles.warning_body}>
-                <Text style={styles.text}>The name must be longer than 3 characters</Text>
+                <Text style={styles.text}>
+                  The name must be longer than 3 characters
+                </Text>
               </View>
               <Pressable
                 onPress={() => setShowWarning(false)}
                 style={styles.warning_button}
-                android_ripple={{color: '#fff'}}
-              >
+                android_ripple={{color: '#fff'}}>
                 <Text style={styles.text}>OK</Text>
               </Pressable>
             </View>
@@ -116,26 +122,33 @@ function App(): JSX.Element {
           activeOpacity={0.2}>
           <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
         </TouchableOpacity>
-        <Pressable style={styles.button} onPress={onPressHandler}>
+        <CustomButton 
+          onPressFunction={onPressHandler}
+          title={submitted ? 'Clear' : 'Submit'}
+          style={{margin:10}}
+        />
+        {/* <Pressable style={styles.button} onPress={onPressHandler}>
           <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
-        </Pressable>
+        </Pressable> */}
         {submitted ? (
           <View style={styles.body}>
             <Text style={styles.text}>You are registered as {name}</Text>
-            <Image 
+            <Image
               style={styles.image_error}
               source={require('./assets/done.jpg')}
-              resizeMode='stretch'
+              resizeMode="stretch"
             />
           </View>
-        ) : 
-          <Image 
+        ) : (
+          <Image
             style={styles.image_error}
-            source={{uri: 'http://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png'}}
-            resizeMode='stretch'
+            source={{
+              uri: 'http://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png',
+            }}
+            resizeMode="stretch"
             blurRadius={3}
           />
-        }
+        )}
       </View>
     </ImageBackground>
   );
@@ -179,7 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#000',
-    borderRadius: 20
+    borderRadius: 20,
   },
   warning_title: {
     height: 50,
@@ -203,7 +216,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 10,
-  }
+  },
 });
 
 export default App;
