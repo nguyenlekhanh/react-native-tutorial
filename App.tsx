@@ -20,20 +20,19 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function App(): JSX.Element {
-  const [count, setCount] = useState(0);
-  const [number, setNumber] = useState(0);
+  const [name, setName] = useState<string>('Style Test');
 
   const onClickHandler = () => {
-    setCount(count + 1);
-    setNumber(number + 5);
+    setName('Styel Test is Done');
   }
 
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>{number}</Text>
-      <Button title="Update State"
-        onPress={onClickHandler}></Button>
-      <Text style={styles.text}>You clicked {count} {count > 1 ? "times" : "time"}</Text>
+      <Text style={styles.text}>{name}</Text>
+      <View style={styles.button}>
+        <Button title="Update State"
+          onPress={onClickHandler}></Button>
+      </View>
     </View>
   );
 }
@@ -41,15 +40,24 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#0000ff',
+    backgroundColor: '#ffff00',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 10,
+    borderColor: '#ff00ff',
+    borderRadius: 10,
+    margin: 40
   },
   text: {
-    color: '#fff',
+    color: '#000',
     fontSize: 20,
     fontStyle: 'italic',
     margin: 10,
+    textTransform: 'uppercase',
+  },
+  button: {
+    width: 200,
+    height: 60,
   }
 });
 
