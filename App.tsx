@@ -12,6 +12,7 @@ import {
   Button,
   FlatList,
   Linking,
+  Modal,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -29,10 +30,12 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 function App(): JSX.Element {
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
   const onPressHandler = () => {
     if (name.length > 3) {
       setSubmitted(!submitted);
     } else {
+      setShowWarning(true);
       // Alert.alert(
       //   'Warning',
       //   'The name must be longer than 3 characters',
@@ -63,6 +66,33 @@ function App(): JSX.Element {
 
   return (
     <View style={styles.body}>
+      <Modal
+        visible={showWarning}
+        onRequestClose={() => {
+          setShowWarning(false)
+        }}
+        transparent
+        animationType="fade"
+        hardwareAccelerated
+      >
+        <View style={styles.centered_view}>
+          <View style={styles.warning_modal}>
+            <View style={styles.warning_title}>
+              <Text style={styles.text}>WARNING!</Text>
+            </View>
+            <View style={styles.warning_body}>
+              <Text style={styles.text}>The name must be longer than 3 characters</Text>
+            </View>
+            <Pressable
+              onPress={() => setShowWarning(false)}
+              style={styles.warning_button}
+              android_ripple={{color: '#fff'}}
+            >
+              <Text style={styles.text}>OK</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <Text style={styles.text}>Please write your name:</Text>
       <TextInput
         style={styles.input}
@@ -100,6 +130,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 20,
     margin: 10,
+    textAlign: 'center',
   },
   input: {
     width: 200,
@@ -116,6 +147,38 @@ const styles = StyleSheet.create({
     backgroundColor: '#00ff00',
     alignItems: 'center',
   },
+  centered_view: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000099',
+  },
+  warning_modal: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#000',
+    borderRadius: 20
+  },
+  warning_title: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff0',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+  warning_body: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  warning_button: {
+    backgroundColor: '#00ffff',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  }
 });
 
 export default App;
