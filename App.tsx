@@ -11,12 +11,14 @@ import {
   Button,
   FlatList,
   Linking,
+  Pressable,
   RefreshControl,
   ScrollView,
   SectionList,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -27,6 +29,10 @@ import {
 function App(): JSX.Element {
   
   const [name, setName] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const onPressHandler = () => {
+    setSubmitted(!submitted);
+  }
 
   return (
     <View style={styles.body}>
@@ -37,9 +43,35 @@ function App(): JSX.Element {
         placeholder='e.g. John'
         onChangeText={(value) => setName(value)}
       />
-      <Text>
-        Your name is: {name}
-      </Text>
+      {/* <Button title={submitted ? 'Clear' : 'Submit'}
+        onPress={onPressHandler}
+        disabled={submitted}
+        color='#00f'
+      ></Button> */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={onPressHandler}
+        activeOpacity={0.2}
+      >
+        <Text style={styles.text}>
+        {submitted ? 'Clear' : 'Submit'}
+        </Text>
+      </TouchableOpacity>
+      <Pressable
+        style={styles.button}
+        onPress={onPressHandler}
+      >
+        <Text style={styles.text}>
+          {submitted ? 'Clear' : 'Submit'}
+        </Text>
+      </Pressable>
+      {submitted ? 
+        <Text style={styles.text}>
+          You are registered as {name}
+        </Text>
+        :
+        null
+      }
     </View>
   );
 }
@@ -62,7 +94,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlign: 'center',
     fontSize: 20,
-
+    marginBottom: 10,
+  },
+  button: {
+    width: 150,
+    height: 50,
+    backgroundColor: '#00ff00',
+    alignItems: 'center',
   }
 });
 
