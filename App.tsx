@@ -16,6 +16,7 @@ import {
   SectionList,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 
@@ -24,113 +25,44 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function App(): JSX.Element {
-  const [items, setItems] = useState([
-    { name: 'Item 1'},
-    { name: 'Item 2'},
-    {name: 'Item 3'},
-    { name: 'Item 4'},
-    { name: 'Item 5'},
-    { name: 'Item 6'},
-    { name: 'Item 7'},
-    { name: 'Item 8'},
-  ]);
   
-  const DATA = [
-    {
-      title: 'Title 1',
-      data: ['Item 1-1', 'Item 1-2', 'Item 1-3']
-    },
-    {
-      title: 'Title 2',
-      data: ['Item 2-1', 'Item 2-2', 'Item 2-3']
-    },
-    {
-      title: 'Title 3',
-      data: ['Item 3-1']
-    },
-    {
-      title: 'Title 4',
-      data: ['Item 4-1', 'Item 4-2']
-    }
-  ]
-
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    setItems([...items, {name: 'item 69'}]);
-    setRefreshing(false);
-  }
+  const [name, setName] = useState('');
 
   return (
-    <SectionList 
-      keyExtractor={(item, index) => index.toString()}
-      sections={DATA}
-      renderItem={({item}) => (
-        <Text style={styles.text}>{item}</Text>
-      )}
-      renderSectionHeader={({section})=> (
-        <View style={styles.item}>
-          <Text style={styles.text}>{section.title}</Text>
-        </View>
-      )}
-    />
-    // <FlatList 
-    //   keyExtractor={(item,index) => index.toString()}
-    //   data={items}
-    //   renderItem={({item}) => (
-    //       <View style={styles.item}>
-    //         <Text style={styles.text}>{item.name}</Text>
-    //       </View>
-    //     )}
-    //     refreshControl={
-    //       <RefreshControl 
-    //         refreshing={ refreshing }
-    //         onRefresh={onRefresh}
-    //         colors={['#ff00ff']}
-    //       />
-    //     }
-    // />
-      // <ScrollView 
-      //   style={styles.body}
-      //   refreshControl={
-      //     <RefreshControl 
-      //       refreshing={ refreshing }
-      //       onRefresh={onRefresh}
-      //       colors={['#ff00ff']}
-      //     />
-      //   }
-      // >
-      //   {
-      //     items.map((object) => {
-      //       return (
-      //         <View style={styles.item} key={object.key}>
-      //           <Text style={styles.text}>{object.item}</Text>
-      //         </View>
-      //       )
-      //     })
-      //   }
-      // </ScrollView>
+    <View style={styles.body}>
+      <Text style={styles.text}>
+        Please write your name:
+      </Text>
+      <TextInput style={styles.input}
+        placeholder='e.g. John'
+        onChangeText={(value) => setName(value)}
+      />
+      <Text>
+        Your name is: {name}
+      </Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    flexDirection: 'column',
     backgroundColor: '#fff',
-  },
-  item: {
-    margin: 10,
-    backgroundColor: '#4ae1fa',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     color: '#000',
-    fontSize: 45,
-    fontStyle: 'italic',
+    fontSize: 20,
     margin: 10
+  },
+  input: {
+    width: 200,
+    borderWidth: 1,
+    borderColor: '#555',
+    borderRadius: 5,
+    textAlign: 'center',
+    fontSize: 20,
+
   }
 });
 
