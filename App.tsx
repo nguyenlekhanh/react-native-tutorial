@@ -11,6 +11,8 @@ import {
   Alert,
   Button,
   FlatList,
+  Image,
+  ImageBackground,
   Linking,
   Modal,
   Pressable,
@@ -65,65 +67,83 @@ function App(): JSX.Element {
   };
 
   return (
-    <View style={styles.body}>
-      <Modal
-        visible={showWarning}
-        onRequestClose={() => {
-          setShowWarning(false)
-        }}
-        transparent
-        animationType="fade"
-        hardwareAccelerated
-      >
-        <View style={styles.centered_view}>
-          <View style={styles.warning_modal}>
-            <View style={styles.warning_title}>
-              <Text style={styles.text}>WARNING!</Text>
+    <ImageBackground
+      style={styles.body}
+      source={{uri: 'http://cdn.pixabay.com/photo/2013/07/12/12/35/textture-145968_960_720.png'}}
+    >
+      <View style={styles.body}>
+        <Modal
+          visible={showWarning}
+          onRequestClose={() => {
+            setShowWarning(false)
+          }}
+          transparent
+          animationType="fade"
+          hardwareAccelerated
+        >
+          <View style={styles.centered_view}>
+            <View style={styles.warning_modal}>
+              <View style={styles.warning_title}>
+                <Text style={styles.text}>WARNING!</Text>
+              </View>
+              <View style={styles.warning_body}>
+                <Text style={styles.text}>The name must be longer than 3 characters</Text>
+              </View>
+              <Pressable
+                onPress={() => setShowWarning(false)}
+                style={styles.warning_button}
+                android_ripple={{color: '#fff'}}
+              >
+                <Text style={styles.text}>OK</Text>
+              </Pressable>
             </View>
-            <View style={styles.warning_body}>
-              <Text style={styles.text}>The name must be longer than 3 characters</Text>
-            </View>
-            <Pressable
-              onPress={() => setShowWarning(false)}
-              style={styles.warning_button}
-              android_ripple={{color: '#fff'}}
-            >
-              <Text style={styles.text}>OK</Text>
-            </Pressable>
           </View>
-        </View>
-      </Modal>
-      <Text style={styles.text}>Please write your name:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="e.g. John"
-        onChangeText={value => setName(value)}
-      />
-      {/* <Button title={submitted ? 'Clear' : 'Submit'}
-        onPress={onPressHandler}
-        disabled={submitted}
-        color='#00f'
-      ></Button> */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={onPressHandler}
-        activeOpacity={0.2}>
-        <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
-      </TouchableOpacity>
-      <Pressable style={styles.button} onPress={onPressHandler}>
-        <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
-      </Pressable>
-      {submitted ? (
-        <Text style={styles.text}>You are registered as {name}</Text>
-      ) : null}
-    </View>
+        </Modal>
+        <Text style={styles.text}>Please write your name:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="e.g. John"
+          onChangeText={value => setName(value)}
+        />
+        {/* <Button title={submitted ? 'Clear' : 'Submit'}
+          onPress={onPressHandler}
+          disabled={submitted}
+          color='#00f'
+        ></Button> */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={onPressHandler}
+          activeOpacity={0.2}>
+          <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
+        </TouchableOpacity>
+        <Pressable style={styles.button} onPress={onPressHandler}>
+          <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
+        </Pressable>
+        {submitted ? (
+          <View style={styles.body}>
+            <Text style={styles.text}>You are registered as {name}</Text>
+            <Image 
+              style={styles.image_error}
+              source={require('./assets/done.jpg')}
+              resizeMode='stretch'
+            />
+          </View>
+        ) : 
+          <Image 
+            style={styles.image_error}
+            source={{uri: 'http://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png'}}
+            resizeMode='stretch'
+            blurRadius={3}
+          />
+        }
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
   },
   text: {
@@ -178,6 +198,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#00ffff',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  image_error: {
+    width: 100,
+    height: 100,
+    margin: 10,
   }
 });
 
