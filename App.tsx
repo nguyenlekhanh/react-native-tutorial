@@ -10,6 +10,8 @@ import React, { useState } from 'react';
 import {
   Button,
   Linking,
+  RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -20,58 +22,64 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function App(): JSX.Element {
-  const [name, setName] = useState<string>('Style Test');
+  const [items, setItems] = useState([
+    {key: 1, item: 'Item 1'},
+    {key: 2, item: 'Item 2'},
+    {key: 3, item: 'Item 3'},
+    {key: 4, item: 'Item 4'},
+    {key: 5, item: 'Item 5'},
+    {key: 6, item: 'Item 6'},
+    {key: 7, item: 'Item 7'},
+    {key: 8, item: 'Item 8'},
+  ]);
+  
+  const [refreshing, setRefreshing] = useState(false);
 
-  const onClickHandler = () => {
-    setName('Styel Test is Done');
+  const onRefresh = () => {
+    setRefreshing(true);
+    setItems([...items, {key: 69, item: 'item 69'}]);
+    setRefreshing(false);
   }
 
   return (
-    <View style={styles.body}>
-      <View style={styles.view1}>
-        <Text style={styles.text}>1</Text>
-      </View>
-      <View style={styles.view2}>
-        <Text style={styles.text}>2</Text>
-      </View>
-      <View style={styles.view3}>
-        <Text style={styles.text}>3</Text>
-      </View>
-    </View>
+      <ScrollView 
+        style={styles.body}
+        refreshControl={
+          <RefreshControl 
+            refreshing={ refreshing }
+            onRefresh={onRefresh}
+            colors={['#ff00ff']}
+          />
+        }
+      >
+        {
+          items.map((object) => {
+            return (
+              <View style={styles.item} key={object.key}>
+                <Text style={styles.text}>{object.item}</Text>
+              </View>
+            )
+          })
+        }
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  view1: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#00ffff',
-    alignItems: 'center',
+  item: {
+    margin: 10,
+    backgroundColor: '#4ae1fa',
     justifyContent: 'center',
-  },
-  view2: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ff00ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  view3: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ffff00',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 45,
     fontStyle: 'italic',
     margin: 10
   }
