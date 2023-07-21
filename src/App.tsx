@@ -14,8 +14,12 @@ import {StyleSheet, Text, View, Pressable} from 'react-native';
 import ScreenA from './screenA';
 import ScreenB from './screenB';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+// const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function App() {
   return (
@@ -41,13 +45,14 @@ function App() {
           tabBarOptions={{
             activeTintColor: '#f0f',
             inactiveTintColor: '#555', 
-            activeBackgroundColor: '#fff',
             inactiveBackgroundColor: '#999',
             labelStyle: { fontSize: 14 },
           }}
+          activeColor='#f0edf6'
+          inactiveColor='#3e2465'
+          barStyle={{backgroundColor:'#694fad'}}
         >
         <Tab.Screen name="Screen_A" component={ScreenA}
-          options={{ tabBarBadge: 3 }}
         />
         <Tab.Screen name="Screen_B" component={ScreenB} />
       </Tab.Navigator>
