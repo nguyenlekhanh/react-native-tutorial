@@ -1,4 +1,6 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import GlobalStyle from './utils/GlobalStyle';
+
 
 const ScreenA: React.FC = ({navigation}) => {
   const onPressHandler = () => {
@@ -9,7 +11,8 @@ const ScreenA: React.FC = ({navigation}) => {
 
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>Screen A</Text>
+      <Text style={[GlobalStyle.CustomerFont,
+          styles.text]}>Screen A</Text>
       <Pressable
         onPress={onPressHandler}
         style={({pressed}) => ({backgroundcolor: pressed ? '#ddd' : '#0f0'})}>
