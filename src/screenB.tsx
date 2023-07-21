@@ -1,9 +1,12 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-const ScreenB: React.FC = ({navigation}) => {
+const ScreenB: React.FC = ({navigation, route}) => {
+  const {itemName, itemId} = route.params;
+
   const onPressHandler = () => {
-    navigation.navigate('Screen_A');
+    //navigation.navigate('Screen_A');
     //navigation.goBack();
+    navigation.setParams({ itemId: 14 })
   };
 
   return (
@@ -13,6 +16,9 @@ const ScreenB: React.FC = ({navigation}) => {
         onPress={onPressHandler}
         style={({pressed}) => ({backgroundcolor: pressed ? '#ddd' : '#0f0'})}>
         <Text style={styles.text}>Go to Screen A</Text>
+        
+        <Text style={styles.text}>{itemName}</Text>
+        <Text style={styles.text}>Id: {itemId}</Text>
       </Pressable>
     </View>
   );

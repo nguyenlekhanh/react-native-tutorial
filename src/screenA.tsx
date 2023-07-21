@@ -2,7 +2,8 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 
 const ScreenA: React.FC = ({navigation}) => {
   const onPressHandler = () => {
-    navigation.navigate('Screen_B');
+    // navigation.navigate('Screen_B', {
+    //   itemName: 'Item from Screen A', itemId: 12});
     //navigation.replace('Screen_B');
   };
 

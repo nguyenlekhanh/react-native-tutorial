@@ -54,7 +54,8 @@ function App() {
         >
         <Tab.Screen name="Screen_A" component={ScreenA}
         />
-        <Tab.Screen name="Screen_B" component={ScreenB} />
+        <Tab.Screen name="Screen_B" component={ScreenB} 
+        initialParams={{itemName: 'Item from Screen A', itemId: 13}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
