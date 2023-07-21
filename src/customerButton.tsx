@@ -18,7 +18,7 @@ const CustomButton = (props) => {
          ]}
         >
           <Text style={styles.text}>
-            {props.title ? 'Clear' : 'Submit'}
+            {props.title}
           </Text>
         </Pressable>
     )

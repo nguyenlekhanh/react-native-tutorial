@@ -11,52 +11,33 @@ import * as React from 'react';
 import FontAweSome5 from 'react-native-vector-icons/FontAwesome5Pro';
 
 import {StyleSheet, Text, View, Pressable} from 'react-native';
-import ScreenA from './screenA';
-import ScreenB from './screenB';
+import Home from './screens/Home';
+import Login from './screens/Login';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
+const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
-const Tab = createMaterialTopTabNavigator();
+// const Tab = createMaterialTopTabNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, size, color}) => {
-            let iconName;
-            if (route.name === 'Screen_A') {
-              iconName = 'autoprefixer';
-              size = focused ? 25 : 20;
-              // color = focused? '#f0f' : '#555';
-            } else if (route.name === 'Screen_B') {
-              iconName = 'btc';
-              size = focused ? 25 : 20;
-              // color = focused? '#f0f' : '#555';
-            }
-            return <FontAweSome5 name={iconName} size={size} 
-              color={color}
-            />;
-          },
-        })}
-          tabBarOptions={{
-            activeTintColor: '#f0f',
-            inactiveTintColor: '#555', 
-            inactiveBackgroundColor: '#999',
-            labelStyle: { fontSize: 14 },
-          }}
-          activeColor='#f0edf6'
-          inactiveColor='#3e2465'
-          barStyle={{backgroundColor:'#694fad'}}
+      <Stack.Navigator
+        initialRouteName='Login'
         >
-        <Tab.Screen name="Screen_A" component={ScreenA}
+        <Stack.Screen name="Login" 
+          component={Login}
+          options={{
+            headerShown: false
+          }}
         />
-        <Tab.Screen name="Screen_B" component={ScreenB} 
-        initialParams={{itemName: 'Item from Screen A', itemId: 13}}/>
-      </Tab.Navigator>
+        <Stack.Screen 
+          name="Home" 
+          component={Home} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
