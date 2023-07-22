@@ -132,7 +132,7 @@ const Home: React.FC = ({navigation}) => {
             </Text>
             <FlatList
                 data={cities}
-                renderItem={({ item }) => (
+                renderItem={({ item, index  }) => (
                     <TouchableOpacity
                         onPress={() => { handleNotification(item, index) }}
                     >
