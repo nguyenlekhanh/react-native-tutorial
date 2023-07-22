@@ -112,13 +112,13 @@ const Home: React.FC = ({navigation}) => {
             id: index
         });
 
-        PushNotification.localNotificationSchedule({
-            channelId: "test-channel",
-            title: "Alarm",
-            message: "You clicked on " + item.country + " 20 seconds ago",
-            date: new Date(Date.now() + 20 * 1000),
-            allowWhileIdle: true,
-        });
+        // PushNotification.localNotificationSchedule({
+        //     channelId: "test-channel",
+        //     title: "Alarm",
+        //     message: "You clicked on " + item.country + " 20 seconds ago",
+        //     date: new Date(Date.now() + 20 * 1000),
+        //     allowWhileIdle: true,
+        // });
     }
 
 
@@ -134,7 +134,14 @@ const Home: React.FC = ({navigation}) => {
                 data={cities}
                 renderItem={({ item, index  }) => (
                     <TouchableOpacity
-                        onPress={() => { handleNotification(item, index) }}
+                        onPress={() => { 
+                            handleNotification(item, index);
+                            navigation.navigate('Map', {
+                                city: item.city,
+                                lat: item.lat,
+                                lng: item.lng,
+                            });
+                        }}
                     >
                         <View style={styles.item}>
                             <Text style={styles.title}>{item.country}</Text>

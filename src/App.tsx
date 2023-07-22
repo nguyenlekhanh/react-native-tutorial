@@ -13,6 +13,7 @@ import FontAweSome5 from 'react-native-vector-icons/FontAwesome5Pro';
 import {StyleSheet, Text, View, Pressable} from 'react-native';
 import Home from './screens/Home';
 import Login from './screens/Login';
+import Map from './screens/Map';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -40,6 +41,11 @@ function App() {
           <Stack.Screen 
             name="Home" 
             component={Home} />
+
+          <Stack.Screen
+            name="Map"
+            component={Map}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
