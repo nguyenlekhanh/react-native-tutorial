@@ -1,11 +1,11 @@
-import {Pressable, StyleSheet, Text, View, Alert, TextInput} from 'react-native';
+import {Pressable, StyleSheet, Text, View, Alert, TextInput, FlatList} from 'react-native';
 import GlobalStyle from '../utils/GlobalStyle';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomButton from '../customerButton';
 import SQLite from 'react-native-sqlite-storage';
 import { useSelector, useDispatch } from 'react-redux';
-import { setName, setAge, increaseAge } from '../redux/actions';
+import { setName, setAge, increaseAge, getCities } from '../redux/actions';
 
 const db = SQLite.openDatabase(
     {
@@ -17,7 +17,7 @@ const db = SQLite.openDatabase(
 );
 
 const Home: React.FC = ({navigation}) => {
-    const { name, age } = useSelector(state => state.userReducer);
+    const { name, age, cities } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
     // const [name, setName] = useState('');
@@ -25,6 +25,7 @@ const Home: React.FC = ({navigation}) => {
 
     useEffect(() => {
         getData();
+        dispatch(getCities());
     }, []);
 
     const getData = () => {
@@ -104,7 +105,17 @@ const Home: React.FC = ({navigation}) => {
             ]}>
                 Welcome {name} !
             </Text>
-            <Text style={[
+            <FlatList
+                data={cities}
+                renderItem={({ item }) => (
+                    <View style={styles.item}>
+                        <Text style={styles.title}>{item.country}</Text>
+                        <Text style={styles.subtitle}>{item.city}</Text>
+                    </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+            />
+            {/* <Text style={[
                 GlobalStyle.CustomFont,
                 styles.text
             ]}>
@@ -130,7 +141,7 @@ const Home: React.FC = ({navigation}) => {
                 title='Increase Age'
                 color='#0080ff'
                 onPressFunction={()=>{dispatch(increaseAge())}}
-            />
+            /> */}
         </View>
     )
 };
@@ -156,6 +167,25 @@ const styles = StyleSheet.create({
       fontSize: 20,
       marginTop: 130,
       marginBottom: 10,
+  },
+  item: {
+      backgroundColor: '#ffffff',
+      borderWidth: 2,
+      borderColor: '#cccccc',
+      borderRadius: 5,
+      margin: 7,
+      width: 350,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  title: {
+      fontSize: 30,
+      margin: 10,
+  },
+  subtitle: {
+      fontSize: 20,
+      margin: 10,
+      color: '#999999',
   }
 });
 
