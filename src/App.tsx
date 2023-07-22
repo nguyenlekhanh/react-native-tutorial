@@ -46,6 +46,7 @@ function App() {
             name="Map"
             component={Map}
           />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
