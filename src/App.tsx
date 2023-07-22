@@ -16,6 +16,8 @@ import Login from './screens/Login';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Provider } from 'react-redux';
+import { Store } from './redux/store';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -24,21 +26,23 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Login'
-        >
-        <Stack.Screen name="Login" 
-          component={Login}
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen 
-          name="Home" 
-          component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Login'
+          >
+          <Stack.Screen name="Login" 
+            component={Login}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen 
+            name="Home" 
+            component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

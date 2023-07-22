@@ -3,6 +3,8 @@ import {StyleSheet, View, Image, Text, TextInput, Alert} from 'react-native';
 import CustomButton from '../customerButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SQLite from 'react-native-sqlite-storage';
+import { useSelector, useDispatch } from 'react-redux';
+import { setName, setAge } from '../redux/actions';
 
 const db = SQLite.openDatabase(
     {
@@ -14,9 +16,11 @@ const db = SQLite.openDatabase(
 )
 
 export default function Login({navigation}) {
+    const { name, age } = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
 
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
+    // const [name, setName] = useState('');
+    // const [age, setAge] = useState('');
 
     const createTable = () => {
         db.transaction((tx) => {
@@ -91,12 +95,12 @@ export default function Login({navigation}) {
             <TextInput
                 style={styles.input}
                 placeholder='Enter your name'
-                onChangeText={(value) => setName(value)}
+                onChangeText={(value) => dispatch(setName(value))}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Enter your age'
-                onChangeText={(value) => setAge(value)}
+                onChangeText={(value) => dispatch(setAge(value))}
             />
             <CustomButton
                 title='Login'
